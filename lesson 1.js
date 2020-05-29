@@ -1,87 +1,58 @@
 'use strict'
 
-//1 урок
+/*
+Вопросы на собеседование
+1) Унарный плюс? Отв: +'6'
+2)Чем отличается префиксная форма от постфиксной формы? (45)
+*/
 
-/*var leftBorderWidth = 1;
-{
-    let second = 2;
-}
 
-const pi = 3.14;
+let a = 4.5; // числовой тип данных
+let str = 'dasfag' // string
 
-console.log(second); //не выведет т.к second закрыта скобками
-----------------------------------------------------------------------*/
+let b;
+console.log(b); // выведет undefined так как переменная пустая
 
-//2 урок
+console.log(lol);  // выведет NaN так как переменной не существует
 
-/*var number = 5;//число
-var string = "Hello!";//string
-var sym = Symbol();
-var boolean = true;// 1 or 0
-null;
-undefined;
-var obj = {};//комплексный(функция)
-
-console.log(4/0);
-console.log('string'*9);
-
-let something;
-console.log(something); //выведет undefined
-
-let persone = {     // obj 
-    name: "John",
-    age: 25,
+let obj = { //объект может содержать в себе все типы данных и действия
+    name: 'Vasya', //переменые перечисляются через запятую
+    age: 18,
     isMarried: false
 };
 
-console.log(persone["name"]); //вывод без точек
+console.log(obj.isMarried);
 
-let arr = ['plum.png','orange.jpg','apple.bmp']; //массив
+let arr = ['plump.png', 'god.jpeg', 6, {}, []]; //массив может включать любые типы данных (int string obj) // массив часть объекта
 
-console.log(arr[0]);
----------------------------------------------------------------------------------------------*/
+alert(obj.age); // вывод на сайте
 
-//3 урок
+const result = confirm("Are you here?"); // модальное окно ОК или Отмена
+console.log(result); //при ОК - выведет true, иначе false
 
-/*alert("Hello World");
+const answer = prompt('Сколько вам лет?', ''); // модальное окно с полем ввода;
+console.log(answer); // при отмене выведет null(если написать +prompt то выведет 0), иначе строку(если написать +prompt, то число) которую ввели
 
-let answer = confirm("Are you here?");
+document.write('U are cool!'); // заменит все содержимое сайта на эту строку
 
-console.log(answer); // выводит true или false в зависмости от ответа
+console.log('object - ' + 'lol'); // выведет строку
+console.log(4 + +'- obj'); //NaN
+console.log(4 + +'5');// Выведет 9
 
+let inrc = 10, 
+    decr = 10;
 
-let answer = prompt("Сколько вам лет?", "18");
+    console.log(inrc++);//постфиксная запись сначала выведе 10 потом прибавит 1
+    console.log(--decr);//префиксная запись отнимет 1 и выведет 9
 
-console.log(answer);// запрашивает строку где можно писать
-//console.log(typeof(answer)); // тип данных string
+    console.log(5%2); // остаток 1
+    console.log(2*4 == 8); // сравнение выведет true
+    console.log(2*4 == '8'); // сравнение по значению выведет true
+    console.log(2*4 === '8'); // сравнение по значению и по типу данных выведет false
 
-------------------------------------------------------------------------------------------------*/
+    const isChecked = true,
+          isClosed = false;
 
-//4 урок
-
-// let answer = +prompt("Есть ли вам 18?", "Да");
-
-// console.log(typeof(answer));
-
-// console.log("OOl" + "get");
-// console.log(4 + "get");
-
-// let incr = 10,
-//     decr = 10;
-
-
-
-// console.log(incr++);//сначала выведет число потом прибавит
-// console.log(--decr);//сначала отнимет потом выведет 
-
-// console.log(5%2);//остаток
-// console.log("2" === 2);//сравнение по типу данных
-// console.log("2" == 2);//сравнение 
-
-// let isChecked = true,
-//     isClose = false;
-
-// console.log(isChecked && !isClose);
-// ------------------------------------------------------------------------------------------------
-
-// 5 урок
+    console.log(isChecked && isClosed); // && операция И
+    console.log(isChecked || isClosed); // || операция ИЛИ
+    console.log(!isChecked); // ! отрицание

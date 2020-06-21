@@ -7,6 +7,7 @@
 */
 
 
+
 let a = 4.5; // числовой тип данных
 let str = 'dasfag' // string
 
@@ -56,3 +57,18 @@ let inrc = 10,
     console.log(isChecked && isClosed); // && операция И
     console.log(isChecked || isClosed); // || операция ИЛИ
     console.log(!isChecked); // ! отрицание
+
+    /*
+    Git 
+    Terminal
+    -git init
+    -git config --local user.name "Name"
+    -git config --local user.email sobaka@mail.ru
+    -git add -A
+    -git add 'название файла'
+    -git commit -a -m"first commit" 
+    -git push
+    -git clone
+    -git pull
+     */
+

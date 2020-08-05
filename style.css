@@ -191,3 +191,10 @@ nav .nav_elem {
   background: #358a39;
   color: #333;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

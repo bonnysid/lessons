@@ -13,9 +13,9 @@ const arr = [1, 2, 3, 7, 2];
 // console.log(arr);
 // arr.pop(); //удаляет последний элем
 // console.log(arr);
-// arr.shift(10); //добавляем в начало но затратный
+// arr.unshift(10); //добавляем в начало но затратный
 // console.log(arr);
-// arr.unshift(); //удаляет в начале
+// arr.shift(); //удаляет в начале
 // console.log(arr);
 
 //Способы перебора массива----------------------------------------------
@@ -28,7 +28,7 @@ const arr = [1, 2, 3, 7, 2];
 //     console.log(value);
 // }
 
-arr.forEach(function(item, i, arr) { //item = значение элемента, i = индекс, arr = принимаемый массив; названия переменных могут быть любыми
+arr.forEach(function (item, i, arr) { //item = значение элемента, i = индекс, arr = принимаемый массив; названия переменных могут быть любыми
     item *= 3;
     console.log(`${i+1}) ${item}`);
 });
@@ -38,7 +38,15 @@ console.log(arr); //функция не заменит сами элементы
 const str = prompt(", ");
 const products = str.split(", "); //делит сроку на элементы массива
 products.sort(); //сортирует строки
-products.sort(function(a, b) { //сортирует числа
+products.sort(function (a, b) { //сортирует числа
     return a - b;
 });
 console.log(products.join(' ')); //объединяет элементы массива в строку
+
+function friend(friends) {
+    let res = [];
+    friends.forEach(item => {
+        if (item.length >= 4) res.push(item);
+    });
+    return res;
+}

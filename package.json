@@ -1,0 +1,24 @@
+{
+  "name": "lessons",
+  "version": "1.0.0",
+  "description": "just lessons!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnysid/create.git"
+  },
+  "author": "bonnysid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnysid/create/issues"
+  },
+  "homepage": "https://github.com/bonnysid/create#readme",
+  "devDependencies": {
+    "json-server": "^0.16.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

@@ -38,8 +38,6 @@ inputRUB.addEventListener('input', () => {
 
         });
 
-
-
     //status - 404 error и тд
     //statusText - ответ
     //response

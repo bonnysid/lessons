@@ -34,11 +34,24 @@
         PRIMARY KEY(id) - unequal 
     }
     
-    ALTER TABLE (name of table) ADD (new column) exm : ALTER TABLE people ADD pass VARCHAR(32);
-    ALTRE TABLE (name of table) DROP COLUMN (name of column) exm : ALTER TABLE people DROP COLUMN pass;
+    ALTER TABLE (name of table) ADD (new column) 
+    *exm : ALTER TABLE people ADD pass VARCHAR(32);
+
+    ALTRE TABLE (name of table) DROP COLUMN (name of column) 
+    *exm : ALTER TABLE people DROP COLUMN pass;
+
+    ALTER TABLE (name of table) CHANGE (name of column) (new column with params)
+    *exm : ALTER TABLE people CHANGE birth birth DATE NOT NULL
+
+    INSERT INTO (name of table) (names of fields) VALUES (data)
+    *exm : INSERT INTO people (name, pass, email) VALUES 
+        *("Vasya", 123, sdafg@gmail.com),
+        *("Alex", 4215, sdaf2g@gmail.com);
+
+    UPDATE (name of table) SET (name of columns) WHERE (smth params = smth)
+    *exm : UPDATE `people` SET `name` = 'Max' WHERE id < 3 AND name = 'ivan';
 
     SELECT (smth column) from (name of table)
-    UPGRADE (smth column) from (name of table)
     WHERE (this column = smth)
     Fields a table it is name of columns
 */

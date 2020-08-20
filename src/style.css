@@ -1,0 +1,34 @@
+
+button {
+  width: 100px;
+  height: 40px;
+  margin-right: 50px;
+}
+.list {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+.list-item {
+  display: block;
+  border-radius: 4px;
+  width: 150px;
+  height: 50px;
+  transition: 1s;
+  border: 1px solid navy;
+  font-size: 20px;
+}
+.active {
+  width: 200px;
+  height: 80px;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+img {
+  height: 300px;
+}

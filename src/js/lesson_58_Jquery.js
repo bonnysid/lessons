@@ -1,8 +1,3 @@
-// import {
-//     one,
-//     two
-// } from './lesson_55_modules';
-import * as data from './lesson_55_modules';
 import $ from 'jquery';
 
 $(document).ready(() => { // DOMContentLoaded

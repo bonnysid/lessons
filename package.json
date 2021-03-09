@@ -1,0 +1,35 @@
+{
+  "name": "webpack-lessons",
+  "version": "1.0.0",
+  "description": "webpack lessons",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx webpack --mode development",
+    "build": "npx webpack --mode production",
+    "watch": "npx webpack --mode development --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnysid/webpack-lessons.git"
+  },
+  "keywords": [
+    "webpack",
+    "lessons",
+    "js"
+  ],
+  "author": "Nikita Bortsov <bonnysidworker@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnysid/webpack-lessons/issues"
+  },
+  "homepage": "https://github.com/bonnysid/webpack-lessons#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.1.1",
+    "html-webpack-plugin": "^5.3.0",
+    "loader-utils": "^2.0.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
+  }
+}

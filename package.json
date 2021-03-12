@@ -1,0 +1,32 @@
+{
+  "name": "ts-lessons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "ts-loader": "^8.0.18",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnysid/ts-lessons.git"
+  },
+  "keywords": [
+    "ts",
+    "typescript"
+  ],
+  "author": "Nikita Bortsov <bonnysidworker@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnysid/ts-lessons/issues"
+  },
+  "homepage": "https://github.com/bonnysid/ts-lessons#readme"
+}

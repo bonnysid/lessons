@@ -53,5 +53,15 @@ rect1.color = '#333'
 const rect3 = {} as IRect
 const rect4 = <IRect>{}
 
+interface Styles {
+    [key: string]: string
+}
+
+const css: Styles = {
+    border: '1px solid black',
+    marginTop: '2px',
+    borderRadius: '5px'
+}
+
 console.log(human.age)
 human.read()

@@ -10,12 +10,13 @@ interface IReadable {
 }
 
 interface IRect {
+    color?: string
     size: {
         width: number,
         height: number
     }
 
-    getArea(): number
+    getArea: () => number
 }
 
 class SimpleHuman implements IHuman, IReadable {
@@ -42,11 +43,15 @@ const human: SimpleHuman = new SimpleHuman(5, 'Sid');
 
 const rect1: IRect = {
     size: {height: 10, width: 14},
-    getArea(): number {
+    getArea: () : number => {
         return this.size.height * this.size.width;
     }
-
 }
+
+rect1.color = '#333'
+
+const rect3 = {} as IRect
+const rect4 = <IRect>{}
 
 console.log(human.age)
 human.read()

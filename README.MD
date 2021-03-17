@@ -10,4 +10,4 @@
 ##.gitignore
 - **file.exe** - exclude file
 - **/folder** - exclude folder
-- 
+- all

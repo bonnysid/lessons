@@ -1,6 +1,6 @@
-#LESSONS
+# LESSONS
 
-##Links:
+## Links:
 - **[GitHub](https://github.com/bonnysid/lessons-branches/tree/github)**
 - **[Typescript](https://github.com/bonnysid/lessons-branches/tree/typescript)**
 - **[Javascript](https://github.com/bonnysid/lessons-branches/tree/javascript)**

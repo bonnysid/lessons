@@ -13,8 +13,9 @@
 //? BABEL
 // npm i --save-dev @babel/core @babel/cli @babel/preset-env
 // npm i --save @babel/polyfill
-// npm i --save-dev @babel-loader
+// npm i --save-dev babel-loader
 // * Translate ES6 (or highest) standart to ES5 (or lower)
 
 //? CORE-JS
 // npm i --save-dev core-js
+// npm i react-router-dom -d

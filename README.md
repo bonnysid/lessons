@@ -1,4 +1,4 @@
-# lessons
+# JavaScript
 
 ## Useful libraries
 
@@ -11,3 +11,14 @@ List:
 - [MomentJS](https://momentjs.com/) - for date
 - [HighlightJS](https://highlightjs.org/)
 - [VocaJS](https://vocajs.com/) - works with strings
+## Rules
+![Rules](https://learn.javascript.ru/article/coding-style/code-style.svg)
+## Types
+![Types](https://javascript.ru/files/upload/2007/09/mwsnap005.jpg)
+
+- Number - `1, 2, 3.5, 4.78`
+- String - `'str'`, `"str2"`, \`str3`
+- Boolean - `true`, `false`
+- Null
+- Undefined - let a
+- Object - `{a: 3, b: 3}`, `const a = () => 5`, `['a', 'fds', 'dfs']`

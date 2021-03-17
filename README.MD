@@ -1,13 +1,11 @@
-#GITHUB LESSONS
+#LESSONS
 
-##Comands:
-- **git init** - intitialize your app
-- **git add <filename>** - add file(s) to commit
-- **git commit -m <message>** - commit some changes
-- **git push** - push commit and file to remote repo
-- **git brunch** - show your branch
-  git
-##.gitignore
-- **file.exe** - exclude file
-- **/folder** - exclude folder
-- 
+##Links:
+- **[GitHub](https://github.com/bonnysid/lessons-branches/tree/github)**
+- **[Typescript](https://github.com/bonnysid/lessons-branches/tree/typescript)**
+- **[Javascript](https://github.com/bonnysid/lessons-branches/tree/javascript)**
+- **[Webpack](https://github.com/bonnysid/lessons-branches/tree/webpack)**
+- **[SICP](https://github.com/bonnysid/lessons-branches/tree/sicp)**
+- **[React JS](https://github.com/bonnysid/lessons-branches/tree/rect)**
+- **[SQL](https://github.com/bonnysid/lessons-branches/tree/sql)**
+- **[PHP](https://github.com/bonnysid/lessons-branches/tree/php)**

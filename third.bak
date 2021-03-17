@@ -1,0 +1,11 @@
+#lang racket
+(define (pow x n)
+  (define (pow-iter x n res)
+    (cond ((= n 0) res)
+        ((check n) (pow-iter x (/ n 2) (* res res)))
+         (else (pow-iter x (- n 1) (* res x)))))
+  (define (check n)
+    (= (remainder n 2) 0))
+  
+  (pow-iter x n 1))
+

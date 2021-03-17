@@ -1,0 +1,72 @@
+#lang racket
+(define (make-account balance password)
+  (define count 0)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Недостаточно денег на счете"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (define (dispatch check-pass m)
+    (define call-the-cops?
+      (if (> count 6) (error "Вызвана полиция") (set! count (+ count 1))))
+    (if (eq? check-pass password)
+        (begin (set! count 0)
+               (cond ((eq? m 'withdraw) withdraw)
+                     ((eq? m 'deposit) deposit)
+                     (else (error "Неизвестный вызов -- MAKE-ACCOUNT"
+                                  m))))
+        (begin call-the-cops?
+               (error "Неверный пароль -- MAKE-ACCOUNT"))))
+  dispatch)
+
+(define (make-joint acc password sec-password)
+
+(define (make-monitored func)
+  (define how-many-calls? 0)
+  (define (reset-count)
+    (set! how-many-calls? 0))
+  (define (mf m)
+    (set! how-many-calls? (+ how-many-calls? 1))
+    (sqrt m))
+  (define (dispatch m)
+    (cond ((eq? m 'reset-count) reset-count)
+          ((eq? m 'how-many-calls?) how-many-calls?)
+          (else (mf m))))
+  dispatch)
+
+(define (estimate-pi trials)
+  (sqrt (/ 6 (random-gcd-test trials random-init))))
+(define (random-gcd-test trials initial-x)
+  (define (iter trials-remaining trials-passed x)
+    (let ((x1 (rand-update x)))
+      (let ((x2 (rand-update x1)))
+        (cond ((= trials-remaining 0)
+               (/ trials-passed trials))
+              ((= (gcd x1 x2) 1)
+               (iter (- trials-remaining 1)
+                     (+ trials-passed 1)
+                     x2))
+              (else
+               (iter (- trials-remaining 1)
+                     trials-passed
+                     x2))))))
+  (iter trials 0 initial-x))
+
+(define (estimate-pi trials)
+  (sqrt (/ 6 (monte-carlo trials cesaro-test))))
+
+(define (cesaro-test)
+  (= (gcd (rand) (rand)) 1))
+
+(define (monte-carlo trials experiment)
+  (define (iter trials-remaining trials-passed)
+    (cond ((= trials-remaining 0)
+           (/ trials-passed trials))
+          ((experiment)
+           (iter (- trials-remaining 1) (+ trials-passed 1)))
+          (else
+           (iter (- trials-remaining 1) trials-passed))))
+  (iter trials 0))

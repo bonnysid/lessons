@@ -1,0 +1,20 @@
+#lang racket
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(define (sqrt-iter quess x)
+  (define (good-enough?)
+    (< (abs (- (square quess) x)) 0.001))
+  (define (improve)
+    (average quess (/ x quess)))
+  (defline (average x y)
+    (/ (+ x y) 2))
+  (if (good-enough?)
+      quess
+      (sqrt-iter (improve) x)))
+
+(define (abs x)
+  (if (< x 0) (- x) x))
+
+(define (square x)
+  (* x x))

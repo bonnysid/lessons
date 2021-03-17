@@ -1,0 +1,5 @@
+#lang racket
+
+(define (make-from-real-imag (real-part z) (imag-part z)))
+
+(define (male-from-mag-ang (magnitude z) (angle z)))

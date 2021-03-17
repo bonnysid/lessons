@@ -1,6 +1,5 @@
+# [BACK](https://github.com/bonnysid/lessons-branches/tree/main)
 # GITHUB LESSONS
-
-**[BACK](https://github.com/bonnysid/lessons-branches/tree/main)**
 
 ## Commands:
 - **git config --global user.name <name>** - set your name

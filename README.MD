@@ -1,64 +1,149 @@
 # [BACK](https://github.com/bonnysid/lessons-branches/tree/main)
-# GITHUB LESSONS
+# Spring core
 
-## Commands:
-- **git config --global user.name <name>** - set your name
-- **git config --global user.email <email>** - set your email
-- **git init** - initialize your app
-- **git add <_filename_>** - add file(s) to commit
-- **git restore --staged <_filename_>** - unn add all added files.
-- **git rm --cached <_filename_>** - remove file only from .git
-- **git commit -m <_message_>** - commit some changes
-- **git reset --cached** - delete last commit
-- **git push** - push commit and file to remote repo
-- **git brunch** - show your branch
-- **git brunch <_name of branch_>** - create new branch
-- **git brunch -D <_name of branch_>** - delete the branch
-- **git checkout <_name of branch_>** - switch the branch
-- **git checkout -b <_name of branch_>** - create the new branch and switch to her
-- **git merge <_name of branch_>** - merge a current branch with selected branch
-- **git add remote <_name repo_> <_url_>** - add remote repo
-- **-u** - save data remote repo 
-- **-m** - message
-## .gitignore
-- **file.exe** - exclude file
-- **/folder** - exclude folder
-- ***.html** - exclude all files with .html
-- **!foo.html** - don't ignore this file
-- **/bar/\*\*.\*.js** - exclude all js files in folder bar
-- **/\*.rar** - exclude all files with .rar in root folder
-## Commit examples
-- **init:** - используется для начала проекта/таска. Примеры:
+## Annotations:
+- **@Configuration** - show to spring: this class is config
+```java
+@Configuration
+public class SpringConfig {}
 ```
-init: start youtube-task
-init: start mentor-dashboard tas
+- **@Bean** - create bean
+```java
+@Configuration
+@ComponentScan("org.bloom")
+@PropertySource("classpath:musicPlayer.properties")
+public class SpringConfig {
+
+    @Bean
+    public List<MusicGenres> musicalGenres() {
+        return new ArrayList<>(Arrays.asList(MusicGenres.CLASSIC, MusicGenres.HIP_HOP, MusicGenres.ROCK));
+    }
+}
 ```
-- **feat:** - это реализованная новая функциональность из технического задания (добавил поддержку зумирования, добавил footer, добавил карточку продукта). Примеры:
+- **@Component** - show to spring: this class is component
+```java
+@Component
+public class Computer {}
 ```
-feat: add basic page layout
-feat: implement search box
-feat: implement request to youtube API
-feat: implement swipe for horizontal list
-feat: add additional navigation button
-feat: add banner
-feat: add social links
-feat: add physical security section
-feat: add real social icons
+- **@ComponentScan(<_path of package_>)** - search all **@Components** in selected path
+```java
+@Configuration
+@ComponentScan("org.bloom")
+public class SpringConfig {
+}
 ```
-- **fix:** - исправил ошибку в ранее реализованной функциональности. Примеры:
+- **@PropertySource("classpath:<_path of props_>")** - import props to **@Value**
+```java
+@Configuration
+@PropertySource("classpath:musicPlayer.properties")
+public class SpringConfig {}
 ```
-fix: implement correct loading data from youtube
-fix: change layout for video items to fix bugs
-fix: relayout header for firefox
-fix: adjust social links for mobile
+- **@Qualifier(<_name of class_>)** - insert in prop selected class instance
+```java
+    @Autowired
+    public MusicPlayer(@Qualifier("classicMusic") Music classicMusic,
+                       @Qualifier("rockMusic") Music rockMusic,
+                       @Qualifier("hipHopMusic") Music hipHopMusic,
+                       List<MusicGenres> defaultGenres) {
+        this.classicMusic = classicMusic;
+        this.rockMusic = rockMusic;
+        this.hipHopMusic = hipHopMusic;
+        this.defaultGenres = defaultGenres;
+        this.musics = new ArrayList<>(Arrays.asList(classicMusic, rockMusic, hipHopMusic));
+    }
 ```
-- **refactor:** - новой функциональности не добавлял / поведения не менял. Файлы в другие места положил, удалил, добавил. Изменил форматирование кода (white-space, formatting, missing semi-colons, etc). Улучшил алгоритм, без изменения функциональности.
+- **@Value(${<_value from props_>})** - set value from props
+```java
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
 ```
-refactor: change structure of the project
-refactor: rename vars for better readability
-refactor: apply eslint
-refactor: apply prettier
+- **@Autowired** - show to spring where he need insert props to field/method/constructor
+```java
+public class Computer {
+    @Autowired
+    private MusicPlayer musicPlayer;
+}
 ```
-- **docs:** - используется при работе с документацией/readme проекта. Примеры:
-docs: update readme with additional information
-docs: update description of run() method
+```java
+public class Computer {
+    @Autowired
+    public Computer(MusicPlayer musicPlayer) {
+        id = Computer.lastId++;
+        this.musicPlayer = musicPlayer;
+    }
+}
+```
+```java
+    @Autowired
+    public void setName(String name) {
+            this.name = name;
+    }
+```
+- **@Scope("prototype/singleton")** - add object to map or not
+- **@PostConstruct** - call this method after create the instance
+```java
+    @PostConstruct
+    public void doInit() {
+        System.out.println("Music Player creating...");
+    }
+```
+
+- **@PreDestroy** - call this method before destroy the instance
+```java
+    @PreDestroy
+    public void doDestroy() {
+        System.out.println("Music Player destroying...");
+    }
+```
+
+## XML Tags:
+- **bean**
+```java
+<bean  id="musicPlayer" 
+         class="org.bloom.MusicPlayer" 
+         scope="prototype" 
+         init-method="doInit" 
+  >
+```
+- **property** - setMusic --> name="music"
+```java
+<property name="musics" >
+   <list>
+       <ref bean="musicBean"/>
+        <ref bean="musicBean2"/>
+        <ref bean="musicBean3"/>
+    </list>
+</property>
+```
+
+```java
+<property name="name" value="${musicPlayer.name}"/>
+```
+- **list**
+```java
+<list>
+   <ref bean="musicBean"/>
+    <ref bean="musicBean2"/>
+    <ref bean="musicBean3"/>
+</list>
+```
+- **constructor-arg**
+```java
+<constructor-arg ref/value="musicBean"/>
+```
+- **context:component-scan** - seatch components in package
+```java
+    <context:component-scan base-package="org.bloom"/>
+```
+- **context:property-placeholder**
+
+```java
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+```
+
+
+
+
+

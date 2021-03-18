@@ -6,7 +6,7 @@
 - **git config --global user.email <email>** - set your email
 - **git init** - initialize your app
 - **git add <_filename_>** - add file(s) to commit
-- **git restore --staged .** - unn add all added files.
+- **git restore --staged <_filename_>** - unn add all added files.
 - **git rm --cached <_filename_>** - remove file only from .git
 - **git commit -m <_message_>** - commit some changes
 - **git reset --cached** - delete last commit

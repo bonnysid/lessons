@@ -101,15 +101,15 @@ public class Computer {
 ## XML Tags:
 - **bean** _(props: id, name, class, scope, init-method, destroy-method, factory-bean, factory-method, autowired, primary)_
 Props:
-    - id / name - name of bean
-    - class - init java class to bean
-    - scope ("singleton"/"prototype") - set singleton bean or prototype
-    - init-method - method of class whose will be invoke after the creation bean
-    - destroy-method - method of class whose will be invoke before the destroying bean
-    - factory-bean - bean whose has a factory method
-    - factory-method - method whose create a instance of class
-    - autowired ("byName"/"byType"/"default"/"no") - search bean for ref to this class
-    - primary("true"/"false") - primary bean for autowired
+    - _id / name_ - name of bean
+    - _class_ - init java class to bean
+    - _scope ("singleton"/"prototype")_ - set singleton bean or prototype
+    - _init-method_ - method of class whose will be invoke after the creation bean
+    - _destroy-method_ - method of class whose will be invoke before the destroying bean
+    - _factory-bean_ - bean whose has a factory method
+    - _factory-method_ - method whose create a instance of class
+    - _autowired ("byName"/"byType"/"default"/"no")_ - search bean for ref to this class
+    - _primary("true"/"false")_ - primary bean for autowired
 ```java
 <bean  id="musicPlayer" 
          class="org.bloom.MusicPlayer" 

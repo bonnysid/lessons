@@ -1,279 +1,195 @@
 # [BACK](https://github.com/bonnysid/lessons/tree/main)
-# React
-## Class components:
-- Наследуется от React.Component или PureComponent
-- Обязательно должен присутствовать метод render.
-```javascript
-class Comp exetends React.Component {
-    render () {
-        return (
-            .....jsx
-        )
-    }
-}
-```
-- State изменяется только припомощи setState(newState)
-```javascript
-    onClick = (e) => {
-        ...
-        this.setState(prev => {count: prev.count + 1})
-    }
-```
-- Методы создаются при помощи стрелочных функций (для того чтобы не потерять контекст this) / если делать методы без стрелочных функций то при передаче или в кострукторе нужно забайндить этот метод.
-```javascript
-class Counter extends React.Component {
-    constructor(props) {
-        super(props)
-        this.someMethod = this.someMethod.bind(this)
-    }
-    
-    someMethod() {
-        ...
-    }
-}
-```
-```javascript
-class Counter extends React.Component {
-    someMethod = () => {
-        ...
-    }
-}
-```
-```javascript
-class Counter extends React.Component {
-    state = {
-        count: 0
-    }
-    
-    onClick = (e) => {
-        ...
-        this.setState(prev => {count: prev.count + 1})
-    }
+# Redux
+Libs:
+- **react-redux** - npm i --save react-redux
+- **reselect** - npm i --save reselect
+- **axios** - npm i --save axios
+- **redux-thunk** - npm i --save redux-thunk
+- **redux-form** - npm i --save redux-form
 
-    render() {
-        return (
-            <>
-                <p>{this.state.count}</p>
-                <button onClick={this.onClick}>plus</button>
-            </>
-        )
-    }
-}
-```
-## Life cycles:
-1) **constructor(props)**
-```javascript
-constructor(props) {
-    super(props)
-    state = {...}
-}
-```
-2) **componentWillMount()**_:void_ - before mount
-3) **render()**:_jsx_ - mount
-4) **componentDidMount()**:_void_ - after mount component
-5) **componentShouldUpdate(nextProps, nextState)**:_boolean_ - true - component will update, else not
-6) **componentWillReceiveProps(nextProps)** - is invoked before a mounted component receives new props
-6) **componentWillUpdate(nextProps, nextState)**:_void_ - before update
-7) **componentDidUpdate(prevProps, prevState, snapshot)**:_void_ - after update
-8) **componentWillUnmount()**:_void_ - before unmount
-![lifecycle](https://miro.medium.com/max/1600/0*_UWbSFyhbBMVeCkj.jpeg)
+Functions:
+- **combineReducers**({state: reducer ...}) - create main reducer
+- **createStore**(rootReducers, applyMiddleWare) - create store
+- **applyMiddleware** - add middle ware to dispatch
+- **bindActionCreators** - bind all action creator to dispatch
+```typescript
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import profileReducer from "./reducers/profileReducer";
+import dialogsReducer from "./reducers/dialogsReducer";
+import navbarReducer from "./reducers/navbarReducer";
+import usersReducer from "./reducers/usersReducer";
+import authReducer from "./reducers/authReducer";
+import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
+import appReducer from "./reducers/appReducer";
 
-## Func components:
-- To use state and life cycles hooks are used
-- return jsx
-```javascript
-const someComponent = (props) => {
-    const [count, setCount] = useState(0)
-    
-    const onClick = () => setCount(prev => prev + 1);
-    
-    return (
-        <>
-            <p>{count}</p>
-            <button onClick={onClick}>increase</button>
-        </>
-    )
-}
+const reducers = combineReducers({
+    app: appReducer,
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    navbar: navbarReducer,
+    users: usersReducer,
+    auth: authReducer,
+    form: formReducer
+});
+
+export type RootState = ReturnType<typeof reducers>
+
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+
+export default store;
 ```
+# React-redux
 ## Hooks
-### React:
-- **useState(initState)**:_[value,setValue]_ - returns [state, setState]
-```javascript
-const [value, setValue] = useState('')
-const onChange = e => {
-    setValue(e.target.value)
+- **useDispatch** - return dispatch
+- **useSelector**(state => state.app....) - get access to state
+## Custom hooks
+- **useActions** - get access to all AC
+```typescript
+import ActionCreators from '../redux/action-creators';
+import {useDispatch} from "react-redux";
+import { bindActionCreators } from "redux";
+
+export const useActions = () => {
+    const dispatch = useDispatch();
+    return bindActionCreators(ActionCreators, dispatch)
 }
 ```
-- **useEffect(callback, [deps])**:_func_ - same as componentDidMount, componentDidUpdate, componentWillUnmount
-```javascript
-// Same as componentDidMount
-useEffect(() => {
-    ...
-   fetchData()
-}, []);
-```
-```javascript
-// Same as componentDidUpdate
-useEffect(() => {
-...
-fetchData(url)
-}, [url]);
+- **useTypedSelector** - get access to state (ts)
+```typescript
+import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {RootState} from "../redux/reduxStore";
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
+## Structure
 ```javascript
-// Same as componentWillUnmount
-useEffect(() => {
-    return () => {
-        removeData(url);
-    }
-}, [url]);
-```
-- **useLayoutEffect(callback, [deps])** - same as useEffect but sync
-```javascript
-const RandomValue = () => {
-    const [value, setValue] = useState(0)
-
-    useLayoutEffect(
-        () => {
-            if(value === 0) setValue(Math.random() * 99 + 99)
+const store = {
+    _state: {
+        dialogsPage: {
+            dialogs : [
+                {id: 1, isActive: true, user: {id: 1, name: 'Yana Pros', avatarLink: 'https://sun9-34.userapi.com/3mud1_gH3q-HAdZ7wpn_e5vFP0PqcEpKb9f60Q/2L9tDPWPwbk.jpg'}, time: new Date().toTimeString().substr(0, 9), messages: [
+                        {id: 1, author: {id: 1, name: 'Yana Pros', avatarLink: 'https://sun9-34.userapi.com/3mud1_gH3q-HAdZ7wpn_e5vFP0PqcEpKb9f60Q/2L9tDPWPwbk.jpg'}, time: new Date().toTimeString().substr(0, 9), message: 'Hello'},
+                        {id: 2, author: {id: 1, name: 'Yana Pros', avatarLink: 'https://sun9-34.userapi.com/3mud1_gH3q-HAdZ7wpn_e5vFP0PqcEpKb9f60Q/2L9tDPWPwbk.jpg'}, time: new Date().toTimeString().substr(0, 9), message: 'How are you?'},
+                    ],},
+                {id: 2, isActive: false, user: {id: 2, name: 'Ira Pauchok', avatarLink: 'https://sun9-15.userapi.com/impf/Nn3nY4xxOxkBHEW9Ao3_alcZAXgumh2lNlsYpQ/SlcMmc77PaA.jpg?size=936x937&quality=96&proxy=1&sign=42731f0c49c5336fe6618ae48eaa903f'}, time: new Date().toTimeString().substr(0, 9),  messages: []},
+                {id: 3, isActive: false, user: {id: 3, name: 'Nikita Brekhov', avatarLink: 'https://sun7-8.userapi.com/impf/c851036/v851036735/113073/SOiON4aYvpU.jpg?size=844x891&quality=96&proxy=1&sign=87c777a34cb5afd9de8f56293aa79c6b'}, time: new Date().toTimeString().substr(0, 9), messages: []}
+            ],
+            newMessageText: ''
         },
-        [value]
-    );
-    
-    
-    return <div onClick={setValue(0)}>{value}</div>
-}
-```
-- **useReducer(reducer)**
-- **useRef(initValue)**:_obj.current_ - same as setState but when value change render will not invoke / get link to html element
-```javascript
-const Component = () => {
-    const [value, setValue] = useState('')
-    const renderCount = useRef(1);
-    
-    useEffect(() => renderCount.current++)
-    
-    return (
-        <>
-            <p>Renders: {renderCount.current}</p>
-            <input value={value} onChange={e => setValue(e.target.value)}>
-        </>
-    )
-}
-```
-```javascript
-const Component = () => {
-    const [value, setValue] = useState('')
-    const input = useRef(null);
-    
-    return (
-        <>
-            <p>Renders: {renderCount.current}</p>
-            <input ref={input} value={value} onChange={e => setValue(e.target.value)}>
-        </>
-    )
-}
-```
-- **useContext(context)** - get to component values od context
-```javascript
-const {theme, toggleTheme} = useContext(ThemeContext);
-```
-- **useMemo(callback, [deps])**:_memoValue_ - remembers some values if _deps_ wasn't change
-```javascript
- const child = useMemo(() => <Child a={a}/>,[a]);
-```
-```javascript
-const TodoList = ({todos, query}) => {
-    // Recalculated on every render BAD
-    const filtered = filterTodos(todos, query)
-    // Recalculate only when inputs change
-    const filtered = useMemo(
-        () => filterTodos(todos, query), 
-        [todos, query])
-}
-```
-- **useCallback(callback, [deps])** - remembers some func if _deps_ wasn't change
-```javascript
-// Function will recreate on every render
-const hello = (name, age) => {name, age}
-// Function will create only on first render
-const helloCB = useCallback(
-    (name, age) => {name, age},
-    [],
-);
-// Function will recreate only when name change
-const helloCB = useCallback(
-    (name, age) => {name, age},
-    [name],
-);
+        profilePage: {
+            posts: [
+                {id: 1, author: 'Nikita Bortsov', comment: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.', likeCount: 90},
+                {id: 2, author: 'Nikita Bortsov', comment: 'First post!', likeCount: 5}
+            ],
+            newPostText: ''
+        },
+        navbar: {
+            menuItems: [
+                {title: 'My Profile', link: 'profile'},
+                {title: 'Messages', link: 'messages'},
+                {title: 'News', link: 'news'},
+                {title: 'Users', link: 'friends'},
+                {title: 'Music', link: 'music'},
+                {title: 'Settings', link: 'settings'}
+            ]
+        },
+        users: {
+            joinedUser: {
+                id: 4,
+                name: 'Nikita Bortsov',
+                avatarLink: 'https://sun9-52.userapi.com/VbuS5diiKVWIdt37_zJ5Qdj99TQclDM8IfHkPA/VpKVDBLkFJ8.jpg',
+            },
+            all: [
+                {id: 1, name: 'Yana Pros', avatarLink: 'https://sun9-34.userapi.com/3mud1_gH3q-HAdZ7wpn_e5vFP0PqcEpKb9f60Q/2L9tDPWPwbk.jpg'},
+                {id: 2, name: 'Ira Pauchok', avatarLink: 'https://sun9-15.userapi.com/impf/Nn3nY4xxOxkBHEW9Ao3_alcZAXgumh2lNlsYpQ/SlcMmc77PaA.jpg?size=936x937&quality=96&proxy=1&sign=42731f0c49c5336fe6618ae48eaa903f'},
+                {id: 3, name: 'Nikita Brekhov', avatarLink: 'https://sun7-8.userapi.com/impf/c851036/v851036735/113073/SOiON4aYvpU.jpg?size=844x891&quality=96&proxy=1&sign=87c777a34cb5afd9de8f56293aa79c6b'},
+                {
+                    id: 4,
+                    name: 'Nikita Bortsov',
+                    avatarUrl: 'https://sun9-52.userapi.com/VbuS5diiKVWIdt37_zJ5Qdj99TQclDM8IfHkPA/VpKVDBLkFJ8.jpg',
+                }
+            ],
+        }
 
-```
-![lifecycle](https://repository-images.githubusercontent.com/196048036/cc006f00-a420-11e9-99a6-d0bdf5f0c7bb)
-## Suspense/Lazy
-- Used to load some components not in the main bundle, but only when they are needed.
-```javascript
-const Settings = React.lazy(() => import('./modules/Settings'))
-const ProfileContainer = React.lazy(() => import('./modules/Profile/ProfileContainer'))
-const Music = React.lazy(() => import('./modules/Music'))
+    },
 
-const App = () => {
+    getState() {
+        return this._state;
+    },
+    subscribe(observer) {
+        this.rerenderEntireTree = observer;
+    },
+    rerenderEntireTree() {},
 
-    return (
-        <>
-            <Route path='/profile/:id?' render={withSuspense(ProfileContainer)}/>
-            <Route path='/settings' render={withSuspense(Settings)}/>
-        </>
-    )
+    dispatch(action) {
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.users = usersReducer(this._state.users, action);
+        this._state.navbar = navbarReducer(this._state.navbar, action);
+
+        this.rerenderEntireTree(this._state);
+    }
 }
 ```
 
+## Selectors
+- get abstract access to elems of store
+- createSelector
 ```javascript
-const withSuspense = (Component) => {
-    return (props) => {
-        return <React.Suspense fallback={<Preloader/>}>
-            <Component {...props}/>
-        </React.Suspense>
-    };
-}
-```
-## HoC
-**High order Component(Hoc)** - this is a function that takes a component and adds some properties to it
-```javascript
-const withSuspense = (Component) => {
-    return (props) => {
-        return <React.Suspense fallback={<Preloader/>}>
-            <Component {...props}/>
-        </React.Suspense>
-    };
-}
-```
-## React-router-dom
-**React-router-dom** - libs, whose add routing to react
-1) **Route** (props: exact, path, render, component)
-2) **BrowserRouter** - wrapper
-2) **HashRouter** - wrapper
-```javascript
-import {BrowserRouter} from "react-router-dom";
-import {Route} from "react-router-dom";
+import {createSelector} from 'reselect';
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <Route exact={true} path={'/'} render={() => <Home />}/>
-            <Route path={'/login'} render={() => <Login />}/>
-            <Route path={'/profile/:id?'} render={() => <Profile />}/>
-        </BrowserRouter>
-    )
+const getUsersSelector = (state) => state.users.all;
+export const getUsers = createSelector(getUsersSelector, (users) => {
+    return users.filter(u => true); //test
+})
+
+const getPageSizeSelector = (state) => state.users.pageSize;
+export const getPageSize = createSelector(getPageSizeSelector, (pageSize) => pageSize);
+
+const getTotalCountUsersSelector = (state) => state.users.totalCountUsers;
+export const getTotalCountUsers = createSelector(getTotalCountUsersSelector, (totalCount) => totalCount);
+
+const getPageSelector = (state) => state.users.page;
+export const getPage= createSelector(getPageSelector, (page) => page);
+
+
+const getIsFetchingSelector = (state) => state.users.isFetching;
+export const getIsFetching = createSelector(getIsFetchingSelector, (isFetching) => isFetching);
+
+const getFollowingProcessSelector = (state) => state.users.followingProcess;
+export const getFollowingProcess = createSelector(getFollowingProcessSelector, followingProcess => followingProcess);
+```
+## Thunks
+**thunk** - this is async func (requests to endpoint): (dispatch) => void|Promise
+```javascript
+export const getUserInfo = (userId?: number) => async (dispatch: DispatchType) => {
+    dispatch(toggleFetching(true));
+    const data = await profileAPI.getProfileInfo(userId)
+    const status = await profileAPI.getUserStatus(userId)
+
+    dispatch(setUserStatus(status))
+    dispatch(setUserPageInfo(data));
+    dispatch(setHeaderTitle(data.fullName))
+    dispatch(toggleFetching(false));
+}
+
+export const getUserStatus = (userId: number) => async (dispatch: DispatchType) => {
+    const status = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatus(status))
+}
+
+export const updateUserStatus = (status: string) => async (dispatch: DispatchType) => {
+    dispatch(toggleFetching(true));
+    const data: any = await profileAPI.updateUserStatus(status)
+
+    if (data.resultCode === 0) {
+        dispatch(toggleFetching(false));
+        dispatch(setUserStatus(status));
+    }
 }
 ```
-## React.memo / Pure Component
-- **React.memo** - wrapper for func components
-- **PureComponent** - class for class components, default componentShouldUpdate
-- They add a property to components that is responsible for checking whether the component needs to be re-rendered or not
-```javascript
-const Component = React.memo(() => {})
-```
-```javascript
-class Component extends React.PureComponent {}
-```
+
+
 

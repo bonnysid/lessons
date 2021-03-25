@@ -95,6 +95,119 @@ const someComponent = (props) => {
 }
 ```
 ## Hooks
+### React:
+- **useState(initState)**:_[value,setValue]_ - returns [state, setState]
+```javascript
+const [value, setValue] = useState('')
+const onChange = e => {
+    setValue(e.target.value)
+}
+```
+- **useEffect(callback, [deps])**:_func_ - same as componentDidMount, componentDidUpdate, componentWillUnmount
+```javascript
+// Same as componentDidMount
+useEffect(() => {
+    ...
+   fetchData()
+}, []);
+```
+```javascript
+// Same as componentDidUpdate
+useEffect(() => {
+...
+fetchData(url)
+}, [url]);
+```
+
+```javascript
+// Same as componentWillUnmount
+useEffect(() => {
+    return () => {
+        removeData(url);
+    }
+}, [url]);
+```
+- **useLayoutEffect(callback, [deps])** - same as useEffect but sync
+```javascript
+const RandomValue = () => {
+    const [value, setValue] = useState(0)
+
+    useLayoutEffect(
+        () => {
+            if(value === 0) setValue(Math.random() * 99 + 99)
+        },
+        [value]
+    );
+    
+    
+    return <div onClick={setValue(0)}>{value}</div>
+}
+```
+- **useReducer(reducer)**
+- **useRef(initValue)**:_obj.current_ - same as setState but when value change render will not invoke / get link to html element
+```javascript
+const Component = () => {
+    const [value, setValue] = useState('')
+    const renderCount = useRef(1);
+    
+    useEffect(() => renderCount.current++)
+    
+    return (
+        <>
+            <p>Renders: {renderCount.current}</p>
+            <input value={value} onChange={e => setValue(e.target.value)}>
+        </>
+    )
+}
+```
+```javascript
+const Component = () => {
+    const [value, setValue] = useState('')
+    const input = useRef(null);
+    
+    return (
+        <>
+            <p>Renders: {renderCount.current}</p>
+            <input ref={input} value={value} onChange={e => setValue(e.target.value)}>
+        </>
+    )
+}
+```
+- **useContext(context)** - get to component values od context
+```javascript
+const {theme, toggleTheme} = useContext(ThemeContext);
+```
+- **useMemo(callback, [deps])**:_memoValue_ - remembers some values if _deps_ wasn't change
+```javascript
+ const child = useMemo(() => <Child a={a}/>,[a]);
+```
+```javascript
+const TodoList = ({todos, query}) => {
+    // Recalculated on every render BAD
+    const filtered = filterTodos(todos, query)
+    // Recalculate only when inputs change
+    const filtered = useMemo(
+        () => filterTodos(todos, query), 
+        [todos, query])
+}
+```
+- **useCallback(callback, [deps])** - remembers some func if _deps_ wasn't change
+```javascript
+// Function will recreate on every render
+const hello = (name, age) => {name, age}
+// Function will create only on first render
+const helloCB = useCallback(
+    (name, age) => {name, age},
+    [],
+);
+// Function will recreate only when name change
+const helloCB = useCallback(
+    (name, age) => {name, age},
+    [name],
+);
+
+```
+![lifecycle](https://repository-images.githubusercontent.com/196048036/cc006f00-a420-11e9-99a6-d0bdf5f0c7bb)
 ## Suspense/Lazy
 - Used to load some components not in the main bundle, but only when they are needed.
 ```javascript
@@ -122,15 +235,34 @@ const withSuspense = (Component) => {
     };
 }
 ```
-## React-redux
-## Redux
-## Thunk
-## React-router-dom
-## React-form
-## React-test renderer
 ## HoC
-## Selectors
-## API
+**High order Component(Hoc)** - this is a function that takes a component and adds some properties to it
+```javascript
+const withSuspense = (Component) => {
+    return (props) => {
+        return <React.Suspense fallback={<Preloader/>}>
+            <Component {...props}/>
+        </React.Suspense>
+    };
+}
+```
+## React-router-dom
+**React-router-dom** - libs, whose add routing to react
+## React.memo / Pure Component
+
+# Redux
+
+## Thunk
 ## Reducers
 ## Dispatch
-## React.memo / Pure Component
+
+# React-redux
+
+## hooks
+## Selectors
+## React-form
+## React-test renderer
+
+
+## API
+

@@ -1,4 +1,4 @@
-# React / Redux
+# React
 ## Class components:
 - Наследуется от React.Component или PureComponent
 - Обязательно должен присутствовать метод render.
@@ -248,21 +248,31 @@ const withSuspense = (Component) => {
 ```
 ## React-router-dom
 **React-router-dom** - libs, whose add routing to react
+1) **Route** (props: exact, path, render, component)
+2) **BrowserRouter** - wrapper
+2) **HashRouter** - wrapper
+```javascript
+import {BrowserRouter} from "react-router-dom";
+import {Route} from "react-router-dom";
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Route exact={true} path={'/'} render={() => <Home />}/>
+            <Route path={'/login'} render={() => <Login />}/>
+            <Route path={'/profile/:id?'} render={() => <Profile />}/>
+        </BrowserRouter>
+    )
+}
+```
 ## React.memo / Pure Component
-
-# Redux
-
-## Thunk
-## Reducers
-## Dispatch
-
-# React-redux
-
-## hooks
-## Selectors
-## React-form
-## React-test renderer
-
-
-## API
+- React.memo - wrapper for func components
+- PureComponent - class for class components
+- They add a property to components that is responsible for checking whether the component needs to be re-rendered or not
+```javascript
+const Component = React.memo(() => {})
+```
+```javascript
+class Component extends React.PureComponent {}
+```
 

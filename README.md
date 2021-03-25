@@ -1,3 +1,4 @@
+# [BACK](https://github.com/bonnysid/lessons/tree/main)
 # React
 ## Class components:
 - Наследуется от React.Component или PureComponent
@@ -266,8 +267,8 @@ const App = () => {
 }
 ```
 ## React.memo / Pure Component
-- React.memo - wrapper for func components
-- PureComponent - class for class components
+- **React.memo** - wrapper for func components
+- **PureComponent** - class for class components, default componentShouldUpdate
 - They add a property to components that is responsible for checking whether the component needs to be re-rendered or not
 ```javascript
 const Component = React.memo(() => {})

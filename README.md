@@ -208,6 +208,32 @@ const helloCB = useCallback(
 );
 
 ```
+### Read-router-dom:
+- **useParams()** - return params in url
+- **useHistory()** - return history
+- **useLocation()** - return location
+```typescript
+import React, {useEffect} from 'react';
+import Profile from "./Profile";
+import {useHistory, useParams} from "react-router-dom";
+import Preloader from "../common/Preloader";
+import withSuspense from "../../hoc/withSuspense";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useActions} from "../../hooks/useActions";
+
+interface RouteParams {
+    id: string
+}
+
+const ProfileContainer: React.FC = (props) => {
+
+    const {isFetching, userStatus, userPageInfo: userInfo} = useTypedSelector(state => state.profilePage)
+    const {userId: yourId} = useTypedSelector(state => state.auth.userId)
+    const {id} = useParams<RouteParams>();
+    const {savePhoto, saveProfile, updateUserStatus, getUserInfo} = useActions();
+    const history = useHistory();
+}
+```
 ![lifecycle](https://repository-images.githubusercontent.com/196048036/cc006f00-a420-11e9-99a6-d0bdf5f0c7bb)
 ## Suspense/Lazy
 - Used to load some components not in the main bundle, but only when they are needed.

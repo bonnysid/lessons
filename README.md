@@ -1,8 +1,8 @@
 # [BACK](https://github.com/bonnysid/lessons/tree/main)
 # React
 ## Class components:
-- Наследуется от React.Component или PureComponent
-- Обязательно должен присутствовать метод render.
+- Extends by React.Component or PureComponent
+- The render method must be present
 ```javascript
 class Comp exetends React.Component {
     render () {
@@ -12,14 +12,14 @@ class Comp exetends React.Component {
     }
 }
 ```
-- State изменяется только припомощи setState(newState)
+- State changes only with setState(newState)
 ```javascript
     onClick = (e) => {
         ...
         this.setState(prev => {count: prev.count + 1})
     }
 ```
-- Методы создаются при помощи стрелочных функций (для того чтобы не потерять контекст this) / если делать методы без стрелочных функций то при передаче или в кострукторе нужно забайндить этот метод.
+- Methods are created with arrow functions (so as not to lose the this context) / if you make methods without arrow functions, you must bind this method when passing or in the constructor.
 ```javascript
 class Counter extends React.Component {
     constructor(props) {

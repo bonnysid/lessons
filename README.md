@@ -1,5 +1,23 @@
 # [BACK](https://github.com/bonnysid/lessons/tree/main)
 # React
+
+## UI Libs:
+- [antd](https://ant.design/docs/react/introduce)
+- [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
+- [material-ui](https://material-ui.com/getting-started/installation/)
+## DAL Libs:
+- [axios](https://github.com/axios/axios)
+- [graphql](https://graphql.org/code/)
+- [apollo](https://www.apollographql.com/docs/react/get-started/)
+## BLL Libs:
+- [redux](https://redux.js.org/introduction/getting-started)
+- [react-redux](https://react-redux.js.org/introduction/getting-started)
+- [redux-toolkit](https://redux-toolkit.js.org/introduction/getting-started)
+- [recompose](https://github.com/acdlite/recompose)
+- [mobx](https://mobx.js.org/react-integration.html)
+## Other Libs:
+- [lodash](https://lodash.com/docs/4.17.15)
+
 ## Class components:
 - Extends by React.Component or PureComponent
 - The render method must be present
